@@ -10,6 +10,11 @@ const myVideo = document.createElement('video')
 
 const peers = {}
 
+var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+var local_stream;
+var screenStream;
+var screenSharing = false
+
 myVideo.muted = true
 
 navigator.mediaDevices.getUserMedia({
@@ -60,4 +65,40 @@ function addVideoStream(video, stream){
         video.play()
     })
     videoGrid.append(video)
+}
+
+function startScreenShare() {
+    if (screenSharing) {
+        stopScreenSharing()
+    }
+    navigator.mediaDevices.getDisplayMedia({ video: true }).then((stream) => {
+        screenStream = stream;
+        let videoTrack = screenStream.getVideoTracks()[0];
+        videoTrack.onended = () => {
+            stopScreenSharing()
+        }
+        if (peer) {
+            let sender = currentPeer.peerConnection.getSenders().find(function (s) {
+                return s.track.kind == videoTrack.kind;
+            })
+            sender.replaceTrack(videoTrack)
+            screenSharing = true
+        }
+        console.log(screenStream)
+    })
+}
+
+function stopScreenSharing() {
+    if (!screenSharing) return;
+    let videoTrack = local_stream.getVideoTracks()[0];
+    if (peer) {
+        let sender = currentPeer.peerConnection.getSenders().find(function (s) {
+            return s.track.kind == videoTrack.kind;
+        })
+        sender.replaceTrack(videoTrack)
+    }
+    screenStream.getTracks().forEach(function (track) {
+        track.stop();
+    });
+    screenSharing = false
 }
