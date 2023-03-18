@@ -1,26 +1,35 @@
 {
-  "name": "webrtc-nodejs",
+  "name": "music-hove",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "repository": "https://github.com/himanshuxmehra/Music-Hove.git",
+  "author": "himanshuxmehra <himanshu24mehra@gmail.com>",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "concurrently \"tsc -w\" \"nodemon dist/js/app.js\"",
+    "front": "vite",
+    "front-build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
-    "mysql": "^2.18.1",
-    "peer": "^0.6.1",
-    "peerjs": "^1.3.2",
-    "socket.io": "^4.4.1",
-    "uuid": "^8.3.2"
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.0.2"
   },
   "devDependencies": {
-    "dotenv": "^16.0.0",
-    "nodemon": "^2.0.15"
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^18.15.3",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^3.1.0",
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.21",
+    "vite": "^4.2.0"
   }
 }
