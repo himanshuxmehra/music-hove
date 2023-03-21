@@ -15,7 +15,7 @@ const getSessions = async (req: Request, res: Response): Promise<void> => {
 const createSession = async (req: Request, res: Response): Promise<void> => {
     try {
       const body = req.body as Pick<SessionType, "name" | "description" | "status">
-  
+      console.log(body)
       const session: SessionType = new Session({
         name: body.name,
         description: body.description,
@@ -29,6 +29,7 @@ const createSession = async (req: Request, res: Response): Promise<void> => {
         .status(201)
         .json({ message: "Session added", session: newSession, sessions: allSessions })
     } catch (error) {
+      console.log(error)
       throw error
     }
 }

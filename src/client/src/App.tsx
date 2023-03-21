@@ -1,10 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { getSessions } from './Api'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [sessions, setSessions] = useState<Session[]>([])
+
+  useEffect(() => {
+    fetchSessions()
+  }, [])
+
+  const fetchSessions = (): void => {
+    getSessions()
+    .then(({ data: { sessions } }: Session[] | any) => setSessions(sessions))
+    .catch((err: Error) => console.log(err))
+  }
 
   return (
     <div className="App">
@@ -22,7 +34,9 @@ function App() {
           count is {count}
         </button>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+        {sessions.map((session: Session) => (
+        <p>{session.name}</p>
+      ))}
         </p>
       </div>
       <p className="read-the-docs">
