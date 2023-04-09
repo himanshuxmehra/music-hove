@@ -1,6 +1,7 @@
-import { Response, Request } from "express"
+import { Response, Request,RequestHandler } from "express"
 import { Session as SessionType } from "./../../types/session"
 import Session from "../../models/session"
+import { v4 as uuidv4 } from 'uuid';
 
 const getSessions = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -11,27 +12,42 @@ const getSessions = async (req: Request, res: Response): Promise<void> => {
   }
 }
 
+const getSessionDetail = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const session = await Session.findOne(req.body.id)
+    res.status(200).json({ session })
+  } catch (error) {
+    throw error
+  }
+}
 
-const createSession = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const body = req.body as Pick<SessionType, "name" | "description" | "status">
-      console.log(body)
-      const session: SessionType = new Session({
-        name: body.name,
-        description: body.description,
-        status: body.status,
-      })
-  
-      const newSession: SessionType = await session.save()
-      const allSessions: SessionType[] = await Session.find()
-  
-      res
-        .status(201)
-        .json({ message: "Session added", session: newSession, sessions: allSessions })
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
+const createSession:RequestHandler = async (req,res): Promise<void> => {
+  try {
+    const body = req.body
+    console.log(body)
+    var name =  body.name
+    var description = (body as {description:string}).description
+    var status = body.status
+    var id = body.id
+    var createdBy = body.createdBy
+    const session: SessionType = new Session({
+      name: name,
+      description: description,
+      status: status,
+      createdBy: createdBy,
+      id: uuidv4()
+    })
+
+    const newSession: SessionType = await session.save()
+    const allSessions: SessionType[] = await Session.find()
+
+    res
+      .status(201)
+      .json({ message: "Session added", session: newSession, sessions: allSessions })
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
 }
 
 const updateSession = async (req: Request, res: Response): Promise<void> => {
@@ -71,4 +87,4 @@ const deleteSession = async (req: Request, res: Response): Promise<void> => {
   }
 }
 
-export { getSessions, createSession, updateSession, deleteSession }
+export { getSessions, createSession, updateSession, deleteSession, getSessionDetail };

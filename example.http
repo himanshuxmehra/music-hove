@@ -1,8 +1,7 @@
 POST http://localhost:4000/add-session HTTP/1.1
 content-type: application/json
-
-{
-    "name": "sample",
+body: {
+    "name": "sampledsss",
     "staus": true,
     "description": "ds",
 }

@@ -12,3 +12,20 @@ export const getSessions = async (): Promise<AxiosResponse<ApiDataType>> => {
     throw error
   }
 }
+
+export const getSessionDetail = async (room:any): Promise<AxiosResponse<ApiDataType>> => {
+  try {
+    const sessions: AxiosResponse<ApiDataType> = await axios.get(
+      baseUrl + "/getSessionDetail",{
+        params:{
+          id:room
+        },
+        timeout: 1000 * 5 //timeout after 5sec
+      }
+      
+    )
+    return sessions
+  } catch (error) {
+    throw error
+  }
+}

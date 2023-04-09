@@ -1,48 +1,13 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { getSessions } from './Api'
+import { Route, Routes } from "react-router-dom"
+import SessionPage from "./components/SessionPage"
+import Home from "./Home"
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [sessions, setSessions] = useState<Session[]>([])
-
-  useEffect(() => {
-    fetchSessions()
-  }, [])
-
-  const fetchSessions = (): void => {
-    getSessions()
-    .then(({ data: { sessions } }: Session[] | any) => setSessions(sessions))
-    .catch((err: Error) => console.log(err))
-  }
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-        {sessions.map((session: Session) => (
-        <p>{session.name}</p>
-      ))}
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/session" element={<SessionPage />} />
+    </Routes>
   )
 }
 
