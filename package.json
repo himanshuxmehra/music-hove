@@ -9,7 +9,7 @@
     "build": "tsc",
     "start": "concurrently \"tsc -w\" \"nodemon dist/js/app.js\"",
     "socket": "concurrently \"tsc -w\" \"nodemon dist/js/socket.js\"",
-    "runsv": "concurrently \"npm start\" \"npm vite src/client\""
+    "app": "concurrently \"npm start\" \"npm vite src/client\""
   },
   "dependencies": {
   },
