@@ -1,0 +1,32 @@
+{
+  "name": "music-hove-backend",
+  "version": "1.0.0",
+  "main": "dist/js/index.js",
+  "repository": "https://github.com/himanshuxmehra/Music-Hove.git",
+  "author": "himanshuxmehra <himanshu24mehra@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "concurrently \"tsc -w\" \"nodemon dist/js/app.js\"",
+    "socket": "concurrently \"tsc -w\" \"nodemon dist/js/socketio-server.js\"",
+    "app": "concurrently \"npm start\" \"npm vite src/client\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.4",
+    "socket.io": "^4.7.4",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^18.19.7",
+    "@types/uuid": "^9.0.7",
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.21",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

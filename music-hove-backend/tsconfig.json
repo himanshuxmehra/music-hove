@@ -8,8 +8,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
   },
-  "include": [ "src/**/*" ],
-  "exclude": ["src/client"]
+  "include": [ "src/**/*" ]
 }
 // {
 //   "compilerOptions": {
